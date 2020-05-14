@@ -25,7 +25,8 @@ export function backendLookup(method, endpoint, callback, data) {
   const csrftoken = getCookie('csrftoken');
   xhr.open(method, url)
   xhr.setRequestHeader("Content-Type", "application/json")
-
+  console.log("Here")
+  console.log(csrftoken)
   if (csrftoken){
     // xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
@@ -33,14 +34,14 @@ export function backendLookup(method, endpoint, callback, data) {
   }
   
   xhr.onload = function() {
-    if (xhr.status === 403) {
-      const detail = xhr.response.detail
-      if (detail === "Authentication credentials were not provided."){
-        if (window.location.href.indexOf("login") === -1) {
-          window.location.href = "/login?showLoginRequired=true"
-        }
-      }
-    }
+    // if (xhr.status === 403) {
+    //   const detail = xhr.response.detail
+    //   if (detail === "Authentication credentials were not provided."){
+    //     if (window.location.href.indexOf("login") === -1) {
+    //       window.location.href = "/login?showLoginRequired=true"
+    //     }
+    //   }
+    // }
     callback(xhr.response, xhr.status)
   }
   xhr.onerror = function (e) {
